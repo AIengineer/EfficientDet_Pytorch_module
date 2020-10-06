@@ -1,0 +1,55 @@
+{
+  "NoEpochs": 10,
+  "BatchSize": 1,
+  "Optimizer": "AdamW",
+  "LearningRate": 0.001,
+  "DictionaryClassName": {
+    "Bridging defect": [ ],
+    "Bridging defect 1": [ ],
+    "Overkill": [ ],
+    "Single Overkill": [ ]
+  },
+  "LabelForegrounds": [
+    "#FFFFD700",
+    "#FFFF6347",
+    "#FFFFC0CB",
+    "#FFDC143C"
+  ],
+  "PassClassName": [
+    "Bridging defect",
+    "Bridging defect 1"
+  ],
+  "FailClassName": [
+    "Overkill",
+    "Single Overkill"
+  ],
+  "AugmentList": [
+    "90",
+    "180",
+    "270",
+    "hor",
+    "ver"
+  ],
+  "NumGpus": 1,
+  "CropSize": 128,
+  "Mean": [
+    0.485,
+    0.456,
+    0.406
+  ],
+  "Std": [
+    0.229,
+    0.224,
+    0.225
+  ],
+  "ClassThreshold": [
+    0.05,
+    0.05,
+    0.4,
+    0.4
+  ],
+  "AnchorScales": "[2 ** 0, 2 ** (1.0 / 3.0), 2 ** (2.0 / 3.0)]",
+  "AnchorRatios": "[(1.0, 1.0), (1.4, 0.7), (0.7, 1.4)]",
+  "TrainingLayer": "All",
+  "CompoundCoef": 0
+}
