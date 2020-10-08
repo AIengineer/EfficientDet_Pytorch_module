@@ -17,7 +17,7 @@ from tqdm import tqdm
 
 from backbone import EfficientDetBackbone
 from torch.backends import cudnn
-from efficientdet.utils import BBoxTransform, ClipBoxes
+from classification_module.utils import BBoxTransform, ClipBoxes
 from utils.params import YamlParams
 from utils.utils import preprocess, invert_affine, postprocess, STANDARD_COLORS, standard_to_bgr, get_index_label, \
     plot_one_box, boolean_string

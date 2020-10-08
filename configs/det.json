@@ -23,13 +23,7 @@
     "Overkill",
     "Single Overkill"
   ],
-  "AugmentList": [
-    "90",
-    "180",
-    "270",
-    "hor",
-    "ver"
-  ],
+  "AugmentList": [""],
   "NumGpus": 1,
   "CropSize": 128,
   "Mean": [

@@ -133,6 +133,8 @@ class DataGenerator(Dataset):
         prefix, data_path = '', self.data_path
         if self.pre_augments:
             prefix = np.random.choice(self.pre_augments)
+            #hard code for non augmentation
+            prefix = ''
             if prefix == '':
                 data_path = os.path.join(self.data_path, 'OriginImage')
             else:
@@ -225,7 +227,6 @@ class Augmenter(object):
 
     def __init__(self):
         self.augmenter = iaa.OneOf([
-            iaa.Identity(),
             iaa.AdditiveGaussianNoise(loc=0, scale=(0.0, 0.05 * 255)),
         ])
 
