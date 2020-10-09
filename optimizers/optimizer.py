@@ -1,6 +1,6 @@
 from collections import defaultdict
 from torch._six import container_abcs
-
+from torch.optim import  Optimizer
 import torch
 from copy import deepcopy
 from itertools import chain
@@ -14,7 +14,7 @@ class _RequiredParameter(object):
 required = _RequiredParameter()
 
 
-class Optimizer(object):
+class Optimizer(Optimizer):
     r"""Base class for all optimizers.
 
     .. warning::
