@@ -17,7 +17,7 @@ from tqdm import tqdm
 
 from backbone import EfficientDetBackbone
 from torch.backends import cudnn
-from classification_module.utils import BBoxTransform, ClipBoxes
+from detection_module.utils import BBoxTransform, ClipBoxes
 from utils.params import YamlParams
 from utils.utils import preprocess, invert_affine, postprocess, STANDARD_COLORS, standard_to_bgr, get_index_label, \
     plot_one_box, boolean_string
@@ -139,6 +139,13 @@ if __name__ == '__main__':
     color_list = standard_to_bgr(STANDARD_COLORS)
     input_sizes = [512, 640, 768, 896, 1024, 1280, 1280, 1536]
 
+    model = EfficientDetBackbone(compound_coef=config.compound_coef,
+                                 num_classes=len(config.obj_list),
+                                 ratios=config.anchor_ratios,
+                                 scales=config.anchor_scales)
+    model.load_state_dict(torch.load(opt.weights))
+    model.requires_grad_(False)
+    model.eval()
     if opt.command == 'report':
         square_size = params.square_size
         red_box = ((config.crop_size - square_size) / 2, (config.crop_size - square_size) / 2, (config.crop_size + square_size) / 2, (config.crop_size + square_size) / 2)
@@ -189,15 +196,6 @@ if __name__ == '__main__':
                     x = torch.stack([torch.from_numpy(fi) for fi in framed_imgs], 0)
 
                 x = x.to(torch.float32 if not use_float16 else torch.float16).permute(0, 3, 1, 2)
-
-                model = EfficientDetBackbone(compound_coef=config.compound_coef,
-                                             num_classes=len(config.obj_list),
-                                             ratios=config.anchor_ratios,
-                                             scales=config.anchor_scales)
-                model.load_state_dict(torch.load(opt.weights))
-                model.requires_grad_(False)
-                model.eval()
-
                 if use_cuda:
                     model = model.cuda()
                 if use_float16:
@@ -282,14 +280,6 @@ if __name__ == '__main__':
                     x = torch.stack([torch.from_numpy(fi) for fi in framed_imgs], 0)
 
                 x = x.to(torch.float32 if not use_float16 else torch.float16).permute(0, 3, 1, 2)
-
-                model = EfficientDetBackbone(compound_coef=config.compound_coef,
-                                             num_classes=len(config.obj_list),
-                                             ratios=config.anchor_ratios,
-                                             scales=config.anchor_scales)
-                model.load_state_dict(torch.load(opt.weights))
-                model.requires_grad_(False)
-                model.eval()
 
                 if use_cuda:
                     model = model.cuda()
