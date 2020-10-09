@@ -17,7 +17,7 @@ from tqdm.autonotebook import tqdm
 from detection_module.loss import FocalLoss
 from utils.sync_batchnorm import patch_replication_callback
 from utils.utils import replace_w_sync_bn, CustomDataParallel, get_last_weights, init_weights, save_checkpoint
-
+from optimizers.srsgd import SRSGD
 
 class ModelWithLoss(nn.Module):
     def __init__(self, model, debug=False):
@@ -149,6 +149,8 @@ def train_det(opt, cfg):
 
     if cfg.optimizer.lower() == 'adamw':
         optimizer = torch.optim.AdamW(model.parameters(), cfg.learning_rate)
+    if cfg.optimizer.lower() == 'srsgd':
+        optimizer = SRSGD(model.parameters(), lr=cfg.learning_rate, weight_decay=5e-4, iter_count=100)
     else:
         optimizer = torch.optim.SGD(model.parameters(), cfg.learning_rate, momentum=0.9, nesterov=True)
 
